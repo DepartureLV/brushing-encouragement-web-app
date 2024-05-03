@@ -6,23 +6,23 @@ import Timer from "./components/Timer";
 
 function App() {
 // Use States
-  const [streak, setStreak] = useState(0);
-  const [star, setStar] = useState(0);
+  const [streakScore, setStreakScore] = useState(0);
+  const [starScore, setStarScore] = useState(0);
 
 // Use Effects
   useEffect (() => {
-    setStreak(getStreak());
-    getStar();
+    setStreakScore(getStreakScore());
+    getStarScore();
   }, []);
 
 // Handle functions
   //test function
-  function getStreak() {
+  function getStreakScore() {
     let score = 30;
     return score;
   }
 
-  function getStar() {
+  function getStarScore() {
     let star = 90;
     setStar(star);
   }
