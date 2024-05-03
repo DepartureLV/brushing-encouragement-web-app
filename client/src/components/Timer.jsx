@@ -39,7 +39,7 @@ function Timer() {
     };
     
     
-    const displayTime = (seconds) => {
+    const displayTimerString = (seconds) => {
         const minutes = Math.floor(seconds / 60);
         const remainingSeconds = seconds % 60;
         return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
@@ -48,7 +48,7 @@ function Timer() {
     return (
         <div className='timer-container'>
             <div id='countdown'>
-                {displayTime(remainingSeconds)}
+                {displayTimerString(remainingSeconds)}
             </div>
             <button onClick={remainingSeconds === 0 ? handleReset:handleStart}>Start</button>
         </div>
