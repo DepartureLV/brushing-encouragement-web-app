@@ -26,18 +26,6 @@ function App() {
     setStar(star);
   }
 
-  // function updateStreak() {
-  //   //if timer hasn't been clicked that day, +1, check database to compare
-  // }
-  // async function getStreak() {
-  //   const streak = await fetch('endpoint');//endpoint to get from score table column streak_score where id =user_id
-  //   setStreak(streak);
-  // }
-
-  // async function getStar() {
-  //   const star = await fetch('endpoint');//endpoint to get from score table column star_score where id =user_id
-  //   setStar(star);
-  // }
 
 // Return
   return (
