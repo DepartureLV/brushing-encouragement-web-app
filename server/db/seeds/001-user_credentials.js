@@ -1,4 +1,4 @@
-const { USER_CREDENTIALS_TABLE } = require ('../../src/global/global')
+const { USER_CREDENTIALS_TABLE, SCORES_TABLE } = require("../../src/global/global");
 const { generateHashedPassword, generateSalt } = require('../../src/authentication/password-hasher')
 const crypto = require('crypto');
 /**
