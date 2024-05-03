@@ -16,7 +16,12 @@ function App() {
   useEffect (() => {
     setStreakScore(getStreakScore());
     getStarScore();
+    setIsLoggedIn();
   }, []);
+
+  useEffect  (() => {
+    handleModal()
+  },[isloggedin])
   
   // Handle functions
   //test function
@@ -29,6 +34,10 @@ function App() {
     let star = 90;
     setStarScore(star);
   }
+
+  function handleModal(){
+    return !isloggedin ? <Modal onClick = {() => setIsLoggedIn(true)}/>: <> </>
+  }
   
   
   // Return
@@ -37,7 +46,7 @@ function App() {
       <div>
       <Streak className="streak" streakScore={streakScore}/>
       <Star className="star" starScore={starScore}/>
-      {!isloggedin ? <Modal setIsLoggedIn = {() => setIsLoggedIn(true)}/>: <> </>}
+      {handleModal()}
       <Timer/>
       </div>
     </>
