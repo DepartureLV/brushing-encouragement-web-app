@@ -6,7 +6,7 @@ import Timer from "./components/Timer";
 import Modal from "./components/Modal";
 
 function App() {
-// Use States
+  // Use States
   const [streakScore, setStreakScore] = useState(0);
   const [starScore, setStarScore] = useState(0);
   const [isloggedin, setIsLoggedIn] = useState(false)
@@ -24,7 +24,6 @@ function App() {
   },[isloggedin])
   
   // Handle functions
-  //test function
   function getStreakScore() {
     let score = 30;
     return score;
