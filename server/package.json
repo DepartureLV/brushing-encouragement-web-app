@@ -10,6 +10,7 @@
     "migrate-latest": "npx knex migrate:latest --knexfile ./knexfile.js",
     "migrate-down": "npx knex migrate:down --knexfile ./knexfile.js",
     "seed-data": "npx knex seed:run --knexfile ./knexfile.js",
+    "build": "npm i && npm run migrate-latest && npm run seed-data",
     "knex": "knex"
   },
   "author": "",
