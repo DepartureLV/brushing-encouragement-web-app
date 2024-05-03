@@ -1,4 +1,4 @@
-const { USER_CREDENTIALS_TABLE } = require ('../../src/global/global')
+const { USER_CREDENTIALS_TABLE, SCORES_TABLE } = require("../../src/global/global");
 const { generateHashedPassword, generateSalt } = require('../../src/authentication/password-hasher')
 const crypto = require('crypto');
 /**
@@ -7,8 +7,8 @@ const crypto = require('crypto');
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
+  await knex(SCORES_TABLE).del();
   await knex(USER_CREDENTIALS_TABLE).del();
-
   const brendaPasswordSalt = generateSalt();
   const brendaPlainTextPassword = "test";
   const brendaCredentialsEntry = {
