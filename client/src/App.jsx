@@ -34,11 +34,6 @@ function App() {
       </div>
       <Streak className="streak" streakScore={streak}/>
       <Star className="star" starScore={star}/>
-      {/* <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div> */}
     </>
   )
 }
