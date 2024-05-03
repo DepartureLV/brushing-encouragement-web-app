@@ -33,8 +33,8 @@ function App() {
     <>
       <div>
       </div>
-      <Streak className="streak" streakScore={streak}/>
-      <Star className="star" starScore={star}/>
+      <Streak className="streak" streakScore={streakScore}/>
+      <Star className="star" starScore={starScore}/>
       <>
       <Timer/>
       </>
