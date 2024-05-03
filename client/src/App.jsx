@@ -18,7 +18,6 @@ function App() {
   //test function
   function getStreak() {
     let score = 30;
-    console.log(score);
     return score;
   }
 
@@ -26,7 +25,10 @@ function App() {
     let star = 90;
     setStar(star);
   }
-  
+
+  // function updateStreak() {
+  //   //if timer hasn't been clicked that day, +1, check database to compare
+  // }
   // async function getStreak() {
   //   const streak = await fetch('endpoint');//endpoint to get from score table column streak_score where id =user_id
   //   setStreak(streak);
