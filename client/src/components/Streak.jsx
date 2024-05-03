@@ -3,11 +3,10 @@ import "./Streak.css"
 
 function Streak({streakScore}) {
     //display streak score
-  
     return (
       <>
         <div>
-          <H2>{streakScore}</H2>
+          <h4>🦷 {streakScore}</h4>
         </div>
       </>
     )
