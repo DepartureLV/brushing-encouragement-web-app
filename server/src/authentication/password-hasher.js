@@ -1,7 +1,11 @@
 const crypto = require('crypto');
 
+function generateSalt () {
+  return crypto.randomBytes(6).toString('hex');
+}
+
 function generateHashedPassword (plainTextPassword, saltHex = null) {
-  const salt = saltHex || crypto.randomBytes(6).toString('hex');
+  const salt = saltHex || generateSalt();
   const saltAndPassword = `${salt}${plainTextPassword}`
   const hash = crypto.createHash('sha256');
   const hashedPassword = hash.update(saltAndPassword).digest('hex');
@@ -9,5 +13,6 @@ function generateHashedPassword (plainTextPassword, saltHex = null) {
 }
 
 module.exports = {
+  generateSalt,
   generateHashedPassword
 }
