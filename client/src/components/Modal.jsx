@@ -1,27 +1,21 @@
-import React, { useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 
-const Modal = () => {
+
+
+const Modal = ({onClick}) => {
     useEffect(() => {
-        handleOpenModal();
-    }, []);
+        dialogRef.current.showModal()
+    }, [])
 
-    const handleOpenModal = () => {
-        const modal = document.querySelector("#modal");
-        modal.showModal();
-    };
-
-    const handleCloseModal = () => {
-        const modal = document.querySelector("#modal");
-        modal.close();
-    };
+    const dialogRef = useRef(null)
 
     return (
-        <dialog id="modal">
+        <dialog ref = {dialogRef} id="modal">
             <div className="modal-content">
                 <h2>Enter your credentials.</h2>
                 <input id="E-mail" type="text" placeholder="E-mail" />
                 <input id="Password" type="text" placeholder="Password" />
-                <button onClick={handleCloseModal}>Confirm</button>
+                <button onClick = {onClick}>Confirm</button>
             </div>
         </dialog>
     );

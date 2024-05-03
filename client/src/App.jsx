@@ -5,10 +5,12 @@ import Modal from './components/Modal'
 
 function App() {
 
+  const [isloggedin, setIsLoggedIn] = useState(false)
+
   return (
     <>
     <Timer/>
-    <Modal/>
+    {!isloggedin ? <Modal setIsLoggedIn = {() => setIsLoggedIn(true)}/>: <> </>}
     </>
   )
 }
