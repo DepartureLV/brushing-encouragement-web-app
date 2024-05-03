@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Streak from "./components/Streak";
 import Star from "./components/Star";
+import Timer from "./components/Timer";
 
 function App() {
 // Use States
@@ -34,6 +35,9 @@ function App() {
       </div>
       <Streak className="streak" streakScore={streak}/>
       <Star className="star" starScore={star}/>
+      <>
+      <Timer/>
+      </>
     </>
   )
 }
