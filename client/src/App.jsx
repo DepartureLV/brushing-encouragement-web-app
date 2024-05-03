@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import "./App.css"
-import Streak from "./Streak"
-import Star from "./Star"
+import Streak from "./component/Streak"
+import Star from "./component/Star"
 
 function App() {
 // Use States
@@ -15,6 +15,7 @@ function App() {
   }, []);
 
 // Handle functions
+
   // async function getStreak() {
   //   const streak = await fetch('endpoint');//endpoint to get from score table column streak_score where id =user_id
   //   setStreak(streak);
