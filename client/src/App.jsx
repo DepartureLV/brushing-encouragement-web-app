@@ -63,8 +63,12 @@ function getStarScore() {
   // }
 
     //update scores
-    function addOneToStreak(newNum) {
-      setStreakScore(newNum);
+    function addToStreak(newStreak) {
+      setStreakScore(newStreak);
+    }
+
+    function addToStar(newStar) {
+      setStarScore(newStar);
     }
 
   // async function updateStreakScore() {
@@ -86,7 +90,7 @@ function getStarScore() {
       <Streak className="streak" streakScore={streakScore}/>
       <Star className="star" starScore={starScore}/>
       {handleModal()}
-      <Timer addOneToStreak={addOneToStreak} oldStreakScore={streakScore}/>
+      <Timer addToStreak={addToStreak} addToStar={addToStar} oldStreakScore={streakScore} oldStarScore={starScore}/>
       </div>
     </>
   )
