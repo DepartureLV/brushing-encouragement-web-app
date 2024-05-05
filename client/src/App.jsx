@@ -11,7 +11,7 @@ function App() {
   // Use States
   const [streakScore, setStreakScore] = useState(0);
   const [starScore, setStarScore] = useState(0);
-  const [isloggedin, setIsLoggedIn] = useState(false)
+  const [isLoggedin, setIsLoggedIn] = useState(false)
 
 
   // Use Effects
@@ -24,7 +24,7 @@ function App() {
 
   useEffect  (() => {
     handleModal()
-  },[isloggedin])
+  },[isLoggedin])
   
   // Handle functions
 
@@ -47,7 +47,7 @@ function App() {
   }
 
   function handleModal(){
-    return !isloggedin ? <Modal toggle = {() => setIsLoggedIn(true)}/>: <> </>
+    return !isLoggedin ? <Modal toggle = {() => setIsLoggedIn(true)}/>: <> </>
   }
   
   
