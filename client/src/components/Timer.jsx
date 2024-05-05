@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Timer.css';
 
-function Timer() {
-    const totalSeconds = 120;
+function Timer({addOneToStreak, oldStreakScore}) {
+    const totalSeconds = 5;
     const [isRunning, setIsRunning] = useState(false);
     const [remainingSeconds, setRemainingSeconds] = useState(totalSeconds);
     
@@ -10,14 +10,21 @@ function Timer() {
         handleCountdown()
     }, [isRunning]);
     
+    useEffect(() => {
+        if (remainingSeconds === 0) {
+            let newNum = oldStreakScore + 1;
+            addOneToStreak(newNum);
+        }
+    }, [remainingSeconds]);
+
     const handleStart = () => {
         setIsRunning(true);
     };
 
     const handleReset = () => {
-        setRemainingSeconds(totalSeconds)
-        handleStart()
-    }
+        setRemainingSeconds(totalSeconds);
+        handleStart();
+    };
     
     const handleCountdown = () => {
         let countdown;
@@ -33,7 +40,7 @@ function Timer() {
                     return 0;
                 });
             }, 1000);
-        }
+        };
     
         return () => clearInterval(countdown);
     };

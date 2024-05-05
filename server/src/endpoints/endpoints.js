@@ -34,10 +34,3 @@ const setupServer = () => {
 }
 
 module.exports = { setupServer };
-
-// app.post("/hobbies", async (req, res) => {
-//   const addHobby = req.body.NewHobby;
-//   console.log(addHobby);
-//   const post = await knex('hobby').insert({activity: addHobby});
-//   res.status(200).send(post);
-// });

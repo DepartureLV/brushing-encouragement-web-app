@@ -11,7 +11,7 @@ function App() {
   // Use States
   const [streakScore, setStreakScore] = useState(0);
   const [starScore, setStarScore] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
   // Use Effects
@@ -27,7 +27,7 @@ function App() {
   },[isLoggedIn])
   
   // Handle functions
-
+    //user authentication
   async function handleLogin() {
     const response = await fetch(`${BASE_URL}/login`, {
       method: "POST"
@@ -40,31 +40,44 @@ function App() {
     return !isLoggedIn ? <Modal toggle = {() => setIsLoggedIn(true)}/>: <> </>
   }
   
-  async function getStreakScore() {
-    const response = await fetch (`${BASE_URL}/scores/:id`, {method: "GET"});
-    const score = await response.json();
-    return score.streakScore;
-  }
-  
-  async function getStarScore() {
-    const response = await fetch (`${BASE_URL}/scores/:id`, {method: "GET"});
-    const score = await response.json();
-    setStarScore(score.starScore);
-  }
+    // read scores
+function getStreakScore() {
+   return 25;
+}
 
-  async function updateStreakScore() {
-    await fetch(`${BASE_URL}/scores/:id`, {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-         NewHobby: newEntry,
-      }),
-    });
-    setIsSubmitted(true);
-  }
+function getStarScore() {
+  setStarScore(75);
+}
+
+
+  // async function getStreakScore() {
+  //   const response = await fetch (`${BASE_URL}/scores/:id`, {method: "GET"});
+  //   const score = await response.json();
+  //   return score.streakScore;
+  // }
+  
+  // async function getStarScore() {
+  //   const response = await fetch (`${BASE_URL}/scores/:id`, {method: "GET"});
+  //   const score = await response.json();
+  //   setStarScore(score.starScore);
+  // }
+
+    //update scores
+    function addOneToStreak(newNum) {
+      setStreakScore(newNum);
+    }
+
+  // async function updateStreakScore() {
+  //   await fetch(`${BASE_URL}/streakScore/:id`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //        num: newStreakScore,
+  //     }),
+  //   });
+  // }
   
   // Return
   return (
@@ -73,7 +86,7 @@ function App() {
       <Streak className="streak" streakScore={streakScore}/>
       <Star className="star" starScore={starScore}/>
       {handleModal()}
-      <Timer/>
+      <Timer addOneToStreak={addOneToStreak} oldStreakScore={streakScore}/>
       </div>
     </>
   )
