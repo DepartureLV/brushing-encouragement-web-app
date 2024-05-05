@@ -56,12 +56,13 @@ function App() {
   // Return
   return (
     <>
-      <div>
-      <Streak className="streak" streakScore={streakScore}/>
-      <Star className="star" starScore={starScore}/>
-      {handleModal()}
-      <Timer/>
+      <header>Brush Buddy</header>
+      <div className="scores-section">
+      <Streak className="streak" streakScore={10}/>
+      <Star className="star" starScore={10}/>
       </div>
+      <Timer/>
+      {handleModal()}
     </>
   )
 }
