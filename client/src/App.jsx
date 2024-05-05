@@ -36,22 +36,35 @@ function App() {
     console.log(data);
   }
 
+  function handleModal(){
+    return !isLoggedIn ? <Modal toggle = {() => setIsLoggedIn(true)}/>: <> </>
+  }
+  
   async function getStreakScore() {
-    const response = await fetch (`${BASE_URL}/score/:id`, {method: "GET"});
+    const response = await fetch (`${BASE_URL}/scores/:id`, {method: "GET"});
     const score = await response.json();
     return score.streakScore;
   }
   
   async function getStarScore() {
-    const response = await fetch (`${BASE_URL}/score/:id`, {method: "GET"});
+    const response = await fetch (`${BASE_URL}/scores/:id`, {method: "GET"});
     const score = await response.json();
     setStarScore(score.starScore);
   }
 
-  function handleModal(){
-    return !isLoggedIn ? <Modal toggle = {() => setIsLoggedIn(true)}/>: <> </>
+  async function updateStreakScore() {
+    await fetch(`${BASE_URL}/scores/:id`, {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+         NewHobby: newEntry,
+      }),
+    });
+    setIsSubmitted(true);
   }
-  
   
   // Return
   return (
