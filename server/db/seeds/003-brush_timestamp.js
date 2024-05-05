@@ -9,6 +9,6 @@ exports.seed = async function(knex) {
   await knex(BRUSH_TIMESTAMP_TABLE).del();
   await knex(BRUSH_TIMESTAMP_TABLE).truncate();
   await knex(BRUSH_TIMESTAMP_TABLE).insert([
-    {id: 1}
+    {id: 1, user_id: 1},
   ]);
 };
