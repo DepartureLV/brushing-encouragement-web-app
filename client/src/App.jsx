@@ -11,7 +11,7 @@ function App() {
   // Use States
   const [streakScore, setStreakScore] = useState(0);
   const [starScore, setStarScore] = useState(0);
-  const [isloggedin, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
 
   // Use Effects
@@ -24,7 +24,7 @@ function App() {
 
   useEffect  (() => {
     handleModal()
-  },[isloggedin])
+  },[isLoggedIn])
   
   // Handle functions
 
@@ -36,18 +36,20 @@ function App() {
     console.log(data);
   }
 
-  function getStreakScore() {
-    let score = 30;
-    return score;
+  async function getStreakScore() {
+    const response = await fetch (`${BASE_URL}/score/:id`, {method: "GET"});
+    const score = await response.json();
+    return score.streakScore;
   }
   
-  function getStarScore() {
-    let star = 90;
-    setStarScore(star);
+  async function getStarScore() {
+    const response = await fetch (`${BASE_URL}/score/:id`, {method: "GET"});
+    const score = await response.json();
+    setStarScore(score.starScore);
   }
 
   function handleModal(){
-    return !isloggedin ? <Modal toggle = {() => setIsLoggedIn(true)}/>: <> </>
+    return !isLoggedIn ? <Modal toggle = {() => setIsLoggedIn(true)}/>: <> </>
   }
   
   
