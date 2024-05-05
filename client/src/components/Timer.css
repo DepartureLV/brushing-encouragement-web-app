@@ -6,3 +6,15 @@
     margin: 50px auto;
     text-align: center;
   }
+
+.timer-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.timer-container button {
+  font-size: 3em;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin: auto;
+}

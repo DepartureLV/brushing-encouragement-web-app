@@ -1,11 +1,12 @@
 import React, { useState } from "react"
 import "./Star.css"
 
-function Star({starScore}) {
+function Star(props) {
+  const {starScore, className} = props;
     //display star score
     return (
       <>
-        <div>
+        <div className={className}>
           <h4>⭐ {starScore}</h4>
         </div>
       </>
