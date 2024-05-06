@@ -3,7 +3,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Modal = (props) => {
 
-    const { toggle } = props;
+    const { toggle, setUserId } = props;
     const [userEmail, setUserEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -25,6 +25,15 @@ const Modal = (props) => {
             body: JSON.stringify(userCredentials),
         });
         const data = await response.json();
+        const { id } = data;
+        setUserId(id);
+        if (data.isNewUser === true) {
+            const newScoresResponse = await fetch(`${BASE_URL}/scores/${id}`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+            });
+            const scoresResponseData = await newScoresResponse.json();
+        }
         if (data.isLoggedIn === true) toggle();
     }
 
