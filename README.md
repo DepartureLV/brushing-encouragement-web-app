@@ -6,6 +6,7 @@
 * [Usage](#usage)
 * [Contribution](#contribution)
 * [Test](#test)
+* [Technologies Utilized](#Technologies-Utilized)
 * [Screenshot](#screenshot)
 * [Link](#link)
 
@@ -35,6 +36,12 @@ Be sure to have postgresql 14 or higher installed on your local machine.
 
 ## Test
 Tests are provided for the password hasher and generating salt. Run them using ```npm run test```
+
+## Technologies-Utilized
+- Postgresql (Knex)
+- Express
+- React
+- Node
 
 ## Screenshot
 
