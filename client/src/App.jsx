@@ -7,13 +7,14 @@ import Modal from "./components/Modal";
 import { BRENDA } from "./dummy-data/fixture-data";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-const {user_email, password, id} = BRENDA;
+// const {user_email, password, id} = BRENDA;
 
 function App() {
   // Use States
   const [streakScore, setStreakScore] = useState(0);
   const [starScore, setStarScore] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [id, setID] = useState(BRENDA.id);
 
 
   // Use Effects
@@ -29,7 +30,7 @@ function App() {
   }
 
   function handleModal(){
-    return !isLoggedIn ? <Modal toggle = {() => setIsLoggedIn(true)}/>: <> </>
+    return !isLoggedIn ? <Modal toggle = {() => setIsLoggedIn(true)} setUserId={setID}/>: <> </>
   }
 
   async function handleSetScores() {
