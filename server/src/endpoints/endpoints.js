@@ -12,7 +12,7 @@ const setupServer = () => {
     res.status(200).send("Welcome to Brush Buddy");
   })
 
-  app.get("/score/:id", async (req, res) => {
+  app.get("/scores/:id", async (req, res) => {
     const userId = req.params.id;
     let score = await knex("scores")
       .join("user_credentials", "user_credentials.id", "=", "scores.user_id")
@@ -23,6 +23,72 @@ const setupServer = () => {
   })
   
   app.use("/login", loginRoutes);
+
+  app.put("/starScore/:id", async (req, res) => {
+    const userId = req.params.id;
+    const startOfDay = new Date();
+    const endOfDay = new Date();
+
+    startOfDay.setHours(0, 0, 0, 0); 
+    endOfDay.setHours(23, 59, 59, 999); 
+
+    const brushCount = await knex("brush_timestamps")
+      .where({
+        user_id: userId,
+      })
+      .andWhere("brush_timestamp", ">=", startOfDay)
+      .andWhere("brush_timestamp", "<=", endOfDay)
+      .count("*");
+
+    if (parseInt(brushCount[0].count) >= 2) {
+      return res.status(403).send("Be careful about over-brushing!");
+      }
+      
+    const starScoreAmount = parseInt(brushCount[0].count) < 2 ? 2 : 0;
+    
+    await knex("scores")
+      .where("user_id", userId)
+      .increment("star_score", starScoreAmount);
+
+    await knex("brush_timestamps").insert({
+      user_id: userId, 
+      });
+
+    let starScore = await knex("scores")
+      .select({starScore: "star_score"})
+      .where({"user_id": userId});
+    
+    return res.status(200).send(starScore);
+  })
+
+  app.put("/streakScore/:id", async (req, res) => {
+    const userId = req.params.id;
+    const startOfDay = new Date();
+    const endOfDay = new Date();
+
+    startOfDay.setHours(0, 0, 0, 0); 
+    endOfDay.setHours(23, 59, 59, 999); 
+
+    const brushCount = await knex("brush_timestamps")
+      .where({
+        user_id: userId,
+      })
+      .andWhere("brush_timestamp", ">=", startOfDay)
+      .andWhere("brush_timestamp", "<=", endOfDay)
+      .count("*");
+
+    const streakScoreAmount = parseInt(brushCount[0].count) === 0 ? 1 : 0;
+    
+    await knex("scores")
+      .where("user_id", userId)
+      .increment("streak_score", streakScoreAmount);
+
+    let streakScore = await knex("scores")
+      .select({streakScore: "streak_score"})
+      .where({"user_id": userId});
+    
+    return res.status(200).send(streakScore);
+  })
 
   return app;
 }
