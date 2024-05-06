@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Timer.css';
 
 function Timer({updateStreakScore, updateStarScore}) {
-    const totalSeconds = 120;
+    const totalSeconds = 3;
     const [isRunning, setIsRunning] = useState(false);
     const [remainingSeconds, setRemainingSeconds] = useState(totalSeconds);
     

@@ -42,15 +42,17 @@ const setupServer = () => {
     let lastBrush = await knex("brush_timestamps")
       .max("brush_timestamp")
       .where({"user_id": userId});
+    console.log("last brush:", lastBrush);
     
-    let timeDifferenceInHours = Math.abs(currentDate.getTime() - lastBrush.getTime())/ (1000 * 3600);
+    if (lastBrush[0].max !== null) {
+    let timeDifferenceInHours = Math.abs(currentDate.getTime() - lastBrush[0].max.getTime())/ (1000 * 3600);
 
     if (timeDifferenceInHours >= 24) {
       await knex("scores")
       .where("user_id", userId)
       .update({"streak_score": 0});
     }
-
+  }
     let score = await knex("scores")
       .join("user_credentials", "user_credentials.id", "=", "scores.user_id")
       .select({streakScore: "streak_score", starScore: "star_score"})
