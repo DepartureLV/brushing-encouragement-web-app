@@ -50,17 +50,17 @@ function getStarScore() {
 }
 
 
-  // async function getStreakScore() {
-  //   const response = await fetch (`${BASE_URL}/scores/:id`, {method: "GET"});
-  //   const score = await response.json();
-  //   return score.streakScore;
-  // }
+  async function getStreakScore() {
+    const response = await fetch (`${BASE_URL}/scores/:id`, {method: "GET"});
+    const score = await response.json();
+    return score.streakScore;
+  }
   
-  // async function getStarScore() {
-  //   const response = await fetch (`${BASE_URL}/scores/:id`, {method: "GET"});
-  //   const score = await response.json();
-  //   setStarScore(score.starScore);
-  // }
+  async function getStarScore() {
+    const response = await fetch (`${BASE_URL}/scores/:id`, {method: "GET"});
+    const score = await response.json();
+    setStarScore(score.starScore);
+  }
 
     //update scores
     function addToStreak(newStreak) {
@@ -88,8 +88,8 @@ function getStarScore() {
     <>
       <header>Brush Buddy</header>
       <div className="scores-section">
-      <Streak className="streak" streakScore={10}/>
-      <Star className="star" starScore={10}/>
+      <Streak className="streak" streakScore={streakScore}/>
+      <Star className="star" starScore={starScore}/>
       </div>
       <Timer addToStreak={addToStreak} addToStar={addToStar} oldStreakScore={streakScore} oldStarScore={starScore}/>
       {handleModal()}
