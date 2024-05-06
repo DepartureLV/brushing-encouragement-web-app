@@ -4,6 +4,8 @@ const app = express();
 const knex = require('../knex');
 const loginRoutes = require("./../routes/login");
 
+const { SCORES_TABLE } = require("./../global/global");
+
 app.use(express.json());
 app.use(cors());
 
@@ -11,6 +13,27 @@ const setupServer = () => {
   app.get("/", (req, res) => {
     res.status(200).send("Welcome to Brush Buddy");
   })
+
+  app.post("/scores/:id", async (req, res) => {
+    const userId = parseInt(req.params.id);
+    const newScoresEntry = {
+      user_id: userId,
+      streak_score: 0,
+      star_score: 0,
+    }
+
+    const result = await knex
+    .insert(newScoresEntry)
+    .into(SCORES_TABLE)
+    .returning(['id']);
+
+    const { id } = result[0];
+
+    res.status(201).send({
+      message: "New scores entry",
+      id: id,
+    });
+  });
 
   app.get("/scores/:id", async (req, res) => {
     const userId = req.params.id;
