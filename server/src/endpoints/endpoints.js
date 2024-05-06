@@ -16,18 +16,11 @@ const setupServer = () => {
     let score = await knex("scores")
       .join("user_credentials", "user_credentials.id", "=", "scores.user_id")
       .select({streakScore: "streak_score", starScore: "star_score"})
-      .where({"user_credentials.id": userId});
+      .where({"user_credentials.id": userId})
+      .first();
     res.status(200).send(score);
   })
 
-  app.get("/score/:id", async (req, res) => {
-    const userId = req.params.id;
-    let score = await knex("scores")
-      .join("user_credentials", "user_credentials.id", "=", "scores.user_id")
-      .select({streakScore: "streak_score", starScore: "star_score"})
-      .where({"user_credentials.id": userId});
-    res.status(200).send(score);
-  })
   return app;
 }
 
