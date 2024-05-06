@@ -86,12 +86,13 @@ function getStarScore() {
   // Return
   return (
     <>
-      <div>
-      <Streak className="streak" streakScore={streakScore}/>
-      <Star className="star" starScore={starScore}/>
-      {handleModal()}
-      <Timer addToStreak={addToStreak} addToStar={addToStar} oldStreakScore={streakScore} oldStarScore={starScore}/>
+      <header>Brush Buddy</header>
+      <div className="scores-section">
+      <Streak className="streak" streakScore={10}/>
+      <Star className="star" starScore={10}/>
       </div>
+      <Timer addToStreak={addToStreak} addToStar={addToStar} oldStreakScore={streakScore} oldStarScore={starScore}/>
+      {handleModal()}
     </>
   )
 }

@@ -4,3 +4,7 @@ html {
   padding: 0;
 }
 
+.scores-section {
+  display:flex;
+  justify-content: center;
+}

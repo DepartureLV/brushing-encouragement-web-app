@@ -1,11 +1,12 @@
 import React, { useState } from "react"
 import "./Streak.css"
 
-function Streak({streakScore}) {
+function Streak(props) {
+  const {streakScore, className} = props;
     //display streak score
     return (
       <>
-        <div>
+        <div className={className}>
           <h4>🦷 {streakScore}</h4>
         </div>
       </>
