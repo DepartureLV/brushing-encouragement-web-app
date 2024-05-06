@@ -39,14 +39,12 @@ const setupServer = () => {
       .andWhere("brush_timestamp", ">=", startOfDay)
       .andWhere("brush_timestamp", "<=", endOfDay)
       .count("*");
-      console.log("brush count is: ", brushCount);
 
     if (parseInt(brushCount[0].count) > 2) {
       return res.status(403).send("Be careful about over-brushing!");
       }
       
-    const starScoreAmount = parseInt(brushCount[0].count) === 0 ? 2 : 1;
-    console.log("star to be added is: ", starScoreAmount);
+    const starScoreAmount = parseInt(brushCount[0].count) < 2 ? 2 : 0;
     
     await knex("scores")
       .where("user_id", userId)

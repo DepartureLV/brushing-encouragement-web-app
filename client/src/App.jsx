@@ -17,10 +17,6 @@ function App() {
 
 
   // Use Effects
-  useEffect (() => {
-    // handleSetScores();
-  }, []);
-
   useEffect  (() => {
     handleModal()
     if (isLoggedIn) handleSetScores();
@@ -44,33 +40,40 @@ function App() {
   }
 
   async function getScores() {
-    const response = await fetch (`${BASE_URL}/score/${id}`, {method: "GET"});
+    const response = await fetch (`${BASE_URL}/scores/${id}`, {method: "GET"});
     const scores = await response.json();
     return scores;
 
   }
 
     //update scores
-    function addToStreak(newStreak) {
-      setStreakScore(newStreak);
-    }
+  async function updateStreakScore() {
+    const resStreak = await fetch(`${BASE_URL}/streakScore/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
 
-    function addToStar(newStar) {
-      setStarScore(newStar);
-    }
-
-  // async function updateStreakScore() {
-  //   await fetch(`${BASE_URL}/streakScore/:id`, {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //        num: newStreakScore,
-  //     }),
-  //   });
-  // }
+    const newStreakScore = await resStreak.json();
+    const newStreak = newStreakScore[0].streakScore;
+    setStreakScore(newStreak);
+  }
   
+  async function updateStarScore() {
+
+    const resStar = await fetch(`${BASE_URL}/starScore/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+
+    const newStarScore = await resStar.json();
+    const newStar = newStarScore[0].starScore;
+    setStarScore(newStar);
+  }
+
   // Return
   return (
     <>
@@ -79,7 +82,7 @@ function App() {
       <Streak className="streak" streakScore={streakScore}/>
       <Star className="star" starScore={starScore}/>
       </div>
-      <Timer addToStreak={addToStreak} addToStar={addToStar} oldStreakScore={streakScore} oldStarScore={starScore}/>
+      <Timer updateStreakScore={updateStreakScore} updateStarScore={updateStarScore}/>
       {handleModal()}
     </>
   )

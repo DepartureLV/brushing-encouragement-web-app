@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Timer.css';
 
-function Timer({addToStreak, addToStar, oldStreakScore, oldStarScore}) {
+function Timer({updateStreakScore, updateStarScore}) {
     const totalSeconds = 5;
     const [isRunning, setIsRunning] = useState(false);
     const [remainingSeconds, setRemainingSeconds] = useState(totalSeconds);
@@ -12,10 +12,8 @@ function Timer({addToStreak, addToStar, oldStreakScore, oldStarScore}) {
     
     useEffect(() => {
         if (remainingSeconds === 0) {
-            let newStreak = oldStreakScore + 1;
-            addToStreak(newStreak);
-            let newStar = oldStarScore + 2;
-            addToStar(newStar);
+            updateStreakScore();
+            updateStarScore();
         }
     }, [remainingSeconds]);
 
