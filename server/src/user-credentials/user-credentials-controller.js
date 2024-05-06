@@ -1,6 +1,32 @@
 const userCredentialModel = require('./user-credentials-model');
 const { generateSalt, generateHashedPassword } = require('./../authentication/password-hasher');
 
+async function createUserCredential (req, res) {
+  const { user_email, password } = req.body;
+  const salt = generateSalt();
+  const hashedPassword = generateHashedPassword(password, salt);
+  const userCredentialObj = {
+    user_email: user_email,
+    hashed_password: hashedPassword,
+    salt: salt,
+  }
+  try {
+    const result = await userCredentialModel.create(userCredentialObj);
+    const { id } = result[0];
+    res.status(201).send({
+      id: id,
+      message: "New user, welcome",
+      isNewUser: true,
+      isLoggedIn: true,
+    });
+  } catch (err) {
+    res.status(400).send({
+      message: err,
+      isLoggedIn: false
+    }) 
+  }
+}
+
 async function getUserCredential (req, res) {
   const { user_email } = req.body;
   const result = await userCredentialModel.getByEmail(user_email);
@@ -10,10 +36,8 @@ async function getUserCredential (req, res) {
 async function handleUserCredential(req, res) {
   const user = await getUserCredential(req, res);
   if (!user) {
-    return res.status(403).send({
-      message: "User not found",
-      isLoggedIn: false,
-    });
+    const newUser = await createUserCredential(req, res);
+    return newUser;
   } 
 
   const { password } = req.body;
@@ -32,6 +56,7 @@ async function handleUserCredential(req, res) {
 }
 
 module.exports = {
+  createUserCredential,
   getUserCredential,
   handleUserCredential,
 }
