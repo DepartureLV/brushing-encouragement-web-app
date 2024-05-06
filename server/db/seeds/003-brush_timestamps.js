@@ -11,4 +11,5 @@ exports.seed = async function(knex) {
   await knex(BRUSH_TIMESTAMP_TABLE_V2).insert([
     {id: 1, user_id: 1},
   ]);
+  await knex.raw(`select setval(\'brush_timestamp_id_seq\', max(id)) from ${BRUSH_TIMESTAMP_TABLE_V2}`)
 };
