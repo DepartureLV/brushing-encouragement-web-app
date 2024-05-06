@@ -28,10 +28,10 @@ const setupServer = () => {
     .returning(['id']);
 
     const { id } = result[0];
-    
+
     res.status(201).send({
       message: "New scores entry",
-      id: result[0].id,
+      id: id,
     });
   });
 

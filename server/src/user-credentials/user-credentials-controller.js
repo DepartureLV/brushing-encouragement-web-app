@@ -41,7 +41,7 @@ async function handleUserCredential(req, res) {
   } 
 
   const { password } = req.body;
-  const { hashed_password, salt } = user;
+  const { hashed_password, salt, id } = user;
   if (generateHashedPassword(password, salt) !== hashed_password) { 
     return res.status(403).send({
       message: "Bad credentials",
@@ -49,6 +49,7 @@ async function handleUserCredential(req, res) {
     })
   } else {
     return res.status(200).send({
+      id: id,
       message: "Login successful",
       isLoggedIn: true,
     })
