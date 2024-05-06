@@ -18,11 +18,12 @@ function App() {
 
   // Use Effects
   useEffect (() => {
-    handScoresOnMount();
+    // handleSetScores();
   }, []);
 
   useEffect  (() => {
     handleModal()
+    if (isLoggedIn) handleSetScores();
   },[isLoggedIn])
   
   // Handle functions
@@ -31,7 +32,7 @@ function App() {
     console.error("Not yet implemented");
   }
 
-  async function handScoresOnMount() {
+  async function handleSetScores() {
     const scores = await getScores();
 
     setStreakScore(scores.streakScore);

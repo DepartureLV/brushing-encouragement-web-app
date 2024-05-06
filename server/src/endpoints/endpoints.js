@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const knex = require('../knex');
+const loginRoutes = require("./../routes/login");
 
 app.use(express.json());
 app.use(cors());
@@ -20,6 +21,8 @@ const setupServer = () => {
       .first();
     res.status(200).send(score);
   })
+  
+  app.use("/login", loginRoutes);
 
   return app;
 }
