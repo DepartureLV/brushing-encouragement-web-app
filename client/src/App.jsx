@@ -4,8 +4,10 @@ import Streak from "./components/Streak";
 import Star from "./components/Star";
 import Timer from "./components/Timer";
 import Modal from "./components/Modal";
+import { BRENDA } from "./dummy-data/fixture-data";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+const {user_email, password, id} = BRENDA;
 
 function App() {
   // Use States
@@ -16,50 +18,36 @@ function App() {
 
   // Use Effects
   useEffect (() => {
-    setStreakScore(getStreakScore());
-    getStarScore();
-    setIsLoggedIn();
-    handleLogin();
+    // handleSetScores();
   }, []);
 
   useEffect  (() => {
     handleModal()
+    if (isLoggedIn) handleSetScores();
   },[isLoggedIn])
   
   // Handle functions
     //user authentication
   async function handleLogin() {
-    const response = await fetch(`${BASE_URL}/login`, {
-      method: "POST"
-    });
-    const data = await response.text();
-    console.log(data);
+    console.error("Not yet implemented");
   }
 
   function handleModal(){
     return !isLoggedIn ? <Modal toggle = {() => setIsLoggedIn(true)}/>: <> </>
   }
-  
-    // read scores
-function getStreakScore() {
-   return 25;
-}
 
-function getStarScore() {
-  setStarScore(75);
-}
+  async function handleSetScores() {
+    const scores = await getScores();
 
-
-  async function getStreakScore() {
-    const response = await fetch (`${BASE_URL}/scores/:id`, {method: "GET"});
-    const score = await response.json();
-    return score.streakScore;
+    setStreakScore(scores.streakScore);
+    setStarScore(scores.starScore);
   }
-  
-  async function getStarScore() {
-    const response = await fetch (`${BASE_URL}/scores/:id`, {method: "GET"});
-    const score = await response.json();
-    setStarScore(score.starScore);
+
+  async function getScores() {
+    const response = await fetch (`${BASE_URL}/score/${id}`, {method: "GET"});
+    const scores = await response.json();
+    return scores;
+
   }
 
     //update scores
