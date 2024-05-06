@@ -3,3 +3,5 @@ const BRENDA = {
   user_email: "brenda@gmail.com",
   password: "test",
 }
+
+export {BRENDA};

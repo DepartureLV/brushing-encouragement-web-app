@@ -4,8 +4,10 @@ import Streak from "./components/Streak";
 import Star from "./components/Star";
 import Timer from "./components/Timer";
 import Modal from "./components/Modal";
+import { BRENDA } from "./dummy-data/fixture-data";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+const {user_email, password, id} = BRENDA;
 
 function App() {
   // Use States
@@ -16,10 +18,7 @@ function App() {
 
   // Use Effects
   useEffect (() => {
-    setStreakScore(getStreakScore());
-    getStarScore();
-    setIsLoggedIn();
-    handleLogin();
+    handScoresOnMount();
   }, []);
 
   useEffect  (() => {
@@ -29,23 +28,20 @@ function App() {
   // Handle functions
 
   async function handleLogin() {
-    const response = await fetch(`${BASE_URL}/login`, {
-      method: "POST"
-    });
-    const data = await response.text();
-    console.log(data);
+    console.error("Not yet implemented");
   }
 
-  async function getStreakScore() {
-    const response = await fetch (`${BASE_URL}/score/:id`, {method: "GET"});
-    const score = await response.json();
-    return score.streakScore;
+  async function handScoresOnMount() {
+    const scores = await getScores();
+
+    setStreakScore(scores.streakScore);
+    setStarScore(scores.starScore);
   }
-  
-  async function getStarScore() {
-    const response = await fetch (`${BASE_URL}/score/:id`, {method: "GET"});
-    const score = await response.json();
-    setStarScore(score.starScore);
+
+  async function getScores() {
+    const response = await fetch (`${BASE_URL}/score/${id}`, {method: "GET"});
+    const scores = await response.json();
+    return scores;
   }
 
   function handleModal(){
@@ -58,8 +54,8 @@ function App() {
     <>
       <header>Brush Buddy</header>
       <div className="scores-section">
-      <Streak className="streak" streakScore={10}/>
-      <Star className="star" starScore={10}/>
+      <Streak className="streak" streakScore={streakScore}/>
+      <Star className="star" starScore={starScore}/>
       </div>
       <Timer/>
       {handleModal()}
