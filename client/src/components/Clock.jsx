@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Clock.css';
 
 function Clock({updateStreakScore, updateStarScore}) {
-    const totalSeconds = 120;
+    const totalSeconds = 5;
     const [isRunning, setIsRunning] = useState(false);
     const [remainingSeconds, setRemainingSeconds] = useState(totalSeconds);
     

@@ -8,3 +8,37 @@ html {
   display:flex;
   justify-content: center;
 }
+
+.main-container{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.table-container {
+  scroll-behavior: smooth;
+  height: 461px;
+  width: 500px;
+  overflow-y: scroll;
+  position: relative;
+}
+.table, th, td {
+  text-align: center;
+  border-spacing: 0;
+  top: 0;
+  width:100%;
+}
+
+th, td {
+  width: 25%;
+}
+
+.top-row{
+  top: 0px;
+  background-color: white;
+  position: sticky;
+}
+
+tr:nth-child(even){
+  background-color: rgba(157, 226, 231, 0.4);
+}

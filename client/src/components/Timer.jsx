@@ -1,14 +1,18 @@
 import Streak from "./Streak";
 import Star from "./Star";
 import Clock from "./Clock";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const Timer_2 = () => {
+const Timer = () => {
     //STATES
     const [streakScore, setStreakScore] = useState(0);
     const [starScore, setStarScore] = useState(0);
+
+    useEffect(()=>{
+      handleSetScores();
+    },[])
 
     //Handler
     async function handleSetScores() {
@@ -51,15 +55,15 @@ const Timer_2 = () => {
         setStarScore(newStar);
       }
     return (
-    <>
+    <div className=" timer-display">
     <div className="scores-section">
       <Streak className="streak" streakScore={streakScore}/>
       <Star className="star" starScore={starScore}/>
       </div>
       <Clock updateStreakScore={updateStreakScore} updateStarScore={updateStarScore}/>
-    </>
+    </div>
     )
 }
 
 
-export default Timer_2;
+export default Timer;
