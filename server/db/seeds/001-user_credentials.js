@@ -2,6 +2,7 @@ const {
   USER_CREDENTIALS_TABLE,
   SCORES_TABLE,
   BRUSH_TIMESTAMP_TABLE_V2,
+  FLOSSY_TABLE_V2,
 } = require("../../src/global/global");
 const {
   generateHashedPassword,
@@ -15,6 +16,7 @@ const crypto = require("crypto");
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex(SCORES_TABLE).del();
+  await knex(FLOSSY_TABLE_V2).del();
   await knex(BRUSH_TIMESTAMP_TABLE_V2).del();
   await knex(USER_CREDENTIALS_TABLE).del();
   const brendaPasswordSalt = generateSalt();
