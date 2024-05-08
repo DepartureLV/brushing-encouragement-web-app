@@ -55,13 +55,13 @@ const Timer = () => {
         setStarScore(newStar);
       }
     return (
-    <>
+    <div className=" timer-display">
     <div className="scores-section">
       <Streak className="streak" streakScore={streakScore}/>
       <Star className="star" starScore={starScore}/>
       </div>
       <Clock updateStreakScore={updateStreakScore} updateStarScore={updateStarScore}/>
-    </>
+    </div>
     )
 }
 
