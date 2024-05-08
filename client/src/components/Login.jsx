@@ -1,9 +1,8 @@
 import { useRef, useEffect, useState } from 'react';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const Modal = (props) => {
+const Login = (props) => {
 
-    const { toggle, setUserId } = props;
     const [userEmail, setUserEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -51,4 +50,4 @@ const Modal = (props) => {
     );
 };
 
-export default Modal;
+export default Login;
