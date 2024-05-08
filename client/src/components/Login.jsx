@@ -3,7 +3,6 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Login = (props) => {
 
-    const { toggle, setUserId } = props;
     const [userEmail, setUserEmail] = useState("");
     const [password, setPassword] = useState("");
 
