@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import Header from "./components/Header";
 import Streak from "./components/Streak";
 import Star from "./components/Star";
 import Timer from "./components/Timer";
-import Modal from "./components/Modal";
 import { BRENDA } from "./dummy-data/fixture-data";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -14,33 +12,13 @@ function App() {
   // Use States
   const [streakScore, setStreakScore] = useState(0);
   const [starScore, setStarScore] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // USE ROUTER INSTEAD
   const [id, setID] = useState(BRENDA.id); // useContext
   
   // WE HAVE TO MAKE LOGIN COMPONENT FETCH THROUGH AUTH ENDPOINT AND GET ID BACK.
   // #############################################################################
   // #############################################################################
 
-
-  // Use Effects
-  useEffect  (() => {
-    handleModal() // TURN TO COMPONENT.
-    if (isLoggedIn) handleSetScores();
-  },[isLoggedIn]) // THIS USE ROUTER INSTEAD
-  
-  // Handle functions
-    //user authentication
-  async function handleLogin() {
-    console.error("Not yet implemented");
-  }
-
-  // ROUTER DOM
-  function handleModal(){
-    return !isLoggedIn ? <Modal toggle = {() => setIsLoggedIn(true)} setUserId={setID}/>: <> </>
-  }
-  // ROUTER DOM
-
-  
+//HANDLER FUCNTIONS
   async function handleSetScores() {
     const scores = await getScores();
 
@@ -86,14 +64,12 @@ function App() {
   // Return
   return (
     <>
-      <Header/>
       <div className="scores-section">
       <Streak className="streak" streakScore={streakScore}/>
       <Star className="star" starScore={starScore}/>
       </div>
       <Timer updateStreakScore={updateStreakScore} updateStarScore={updateStarScore}/>
-      {handleModal()}
-   </>
+    </>
   )
 }
 

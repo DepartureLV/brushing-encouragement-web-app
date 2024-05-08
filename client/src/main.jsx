@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import Login from './components/Login.jsx'
 import App from './App.jsx'
 import './index.css'
 import {
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <div>Make the login page!</div>,
+    element: <Login/>,
   },
   {
     path: "*",
