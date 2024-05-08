@@ -1,8 +1,10 @@
 const express = require("express");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 const app = express();
 const knex = require("../knex");
 const loginRoutes = require("./../routes/login");
+const { generateHashedPassword } = require("../authentication/password-hasher");
 
 const { SCORES_TABLE } = require("./../global/global");
 
@@ -14,6 +16,43 @@ const setupServer = () => {
     res.status(200).send("Welcome to Brush Buddy");
   });
 
+  // LOGIN ENDPOINT
+  app.post("/user/login", async (req, res, next) => {
+    const { body } = req;
+    const { user_email } = body;
+    const { password } = body;
+
+    const userVerficationData = await knex("user_credentials")
+      .select("hashed_password", "salt")
+      .where({ user_email: user_email })
+      .first();
+
+    const hashedPassword = generateHashedPassword(
+      password,
+      userVerficationData.salt
+    );
+
+    if (
+      userVerficationData &&
+      hashedPassword === userVerficationData.hashed_password
+    ) {
+      jwt.sign(
+        { message: "Login Successful" },
+        "iGotRobinInThirtyPulls",
+        { expiresIn: "1h" },
+        (err, token) => {
+          if (err) {
+            console.log(err);
+          }
+          res.send(token);
+        }
+      );
+    } else {
+      res.send({ message: "Wrong username orpassword, please try again" });
+    }
+  });
+
+  // DASHBOARD ENDPOINT
   app.get("/leaderboard", async (req, res) => {
     const resp = await knex("scores")
       .select("*")
