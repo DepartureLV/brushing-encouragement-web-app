@@ -13,7 +13,6 @@ const Leaderboard = () =>{
     async function handleGetLeaderboard(){
         const response = await fetch (`${BASE_URL}/leaderboard/`, {method: "GET"});
         const data = await response.json();
-        console.log(data)
         setLeaderboard(data);
     }
     return (        

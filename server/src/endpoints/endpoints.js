@@ -55,7 +55,7 @@ const setupServer = () => {
   });
 
   // DASHBOARD ENDPOINT
-  app.get("/leaderboard", checkToken, async (req, res) => {
+  app.get("/leaderboard", async (req, res) => {
     const resp = await knex("scores")
       .select("*")
       .orderBy("streak_score", "desc");
@@ -63,7 +63,7 @@ const setupServer = () => {
   });
 
   // this is create new challenger ??
-  app.post("/scores/:id", checkToken, async (req, res) => {
+  app.post("/scores/:id", async (req, res) => {
     const userId = parseInt(req.params.id);
     const newScoresEntry = {
       user_id: userId,
@@ -85,7 +85,7 @@ const setupServer = () => {
   });
 
   // get each user's scores
-  app.get("/scores/:id", checkToken, async (req, res) => {
+  app.get("/scores/:id", async (req, res) => {
     const userId = req.params.id;
     const currentDate = new Date();
 
@@ -120,7 +120,7 @@ const setupServer = () => {
 
   // app.use("/login", loginRoutes);
 
-  app.put("/starScore/:id", checkToken, async (req, res) => {
+  app.put("/starScore/:id", async (req, res) => {
     const userId = req.params.id;
     const startOfDay = new Date();
     const endOfDay = new Date();
@@ -158,7 +158,7 @@ const setupServer = () => {
     return res.status(200).send(starScore);
   });
 
-  app.put("/streakScore/:id", checkToken, async (req, res) => {
+  app.put("/streakScore/:id", async (req, res) => {
     const userId = req.params.id;
     const startOfDay = new Date();
     const endOfDay = new Date();
