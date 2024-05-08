@@ -13,19 +13,15 @@ function App() {
   // Use States
   const [streakScore, setStreakScore] = useState(0);
   const [starScore, setStarScore] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // USE ROUTER INSTEAD
-  const [id, setID] = useState(BRENDA.id); // useContext
-  
-  // WE HAVE TO MAKE LOGIN COMPONENT FETCH THROUGH AUTH ENDPOINT AND GET ID BACK.
-  // #############################################################################
-  // #############################################################################
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [id, setID] = useState(BRENDA.id);
 
 
   // Use Effects
   useEffect  (() => {
-    handleModal() // TURN TO COMPONENT.
+    handleModal()
     if (isLoggedIn) handleSetScores();
-  },[isLoggedIn]) // THIS USE ROUTER INSTEAD
+  },[isLoggedIn])
   
   // Handle functions
     //user authentication
@@ -33,13 +29,10 @@ function App() {
     console.error("Not yet implemented");
   }
 
-  // ROUTER DOM
   function handleModal(){
     return !isLoggedIn ? <Modal toggle = {() => setIsLoggedIn(true)} setUserId={setID}/>: <> </>
   }
-  // ROUTER DOM
 
-  
   async function handleSetScores() {
     const scores = await getScores();
 
