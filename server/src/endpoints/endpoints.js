@@ -14,9 +14,12 @@ const setupServer = () => {
     res.status(200).send("Welcome to Brush Buddy");
   });
 
-  // app.get('/leaderboard', async (req,res) => {
-  //   const resp = await knex('')
-  // })
+  app.get("/leaderboard", async (req, res) => {
+    const resp = await knex("scores")
+      .select("*")
+      .orderBy("streak_score", "desc");
+    res.status(200).send(resp);
+  });
 
   // this is create new challenger ??
   app.post("/scores/:id", async (req, res) => {
