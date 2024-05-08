@@ -8,6 +8,8 @@ const { generateHashedPassword } = require("../authentication/password-hasher");
 
 const { SCORES_TABLE } = require("./../global/global");
 
+const SECRET_KEY = process.env.SECRET;
+
 app.use(express.json());
 app.use(cors());
 
@@ -38,7 +40,7 @@ const setupServer = () => {
     ) {
       jwt.sign(
         { message: "Login Successful" },
-        "iGotRobinInThirtyPulls",
+        SECRET_KEY,
         { expiresIn: "1h" },
         (err, token) => {
           if (err) {
@@ -192,7 +194,7 @@ const setupServer = () => {
       const bearer = header.split(" ");
       const token = bearer[1];
 
-      jwt.verify(token, "iGotRobinInThirtyPulls", (err) => {
+      jwt.verify(token, SECRET_KEY, (err) => {
         if (err) {
           res.sendStatus(403);
         } else {
