@@ -16,15 +16,16 @@ const Leaderboard = () =>{
         console.log(data)
         setLeaderboard(data);
     }
-    return (
-        <>
-        <table>
+    return (        
+        <div className="table-container">
+        <h2>Leaderboard</h2>
+        <table className="table">
             <tr>
-                <th>Rank</th>
-                <th>User</th>
-                <th>Streak</th>
-                <th>Stars</th>
-            </tr>
+                <th className="top-row">Rank</th>
+                <th className="top-row">User</th>
+                <th className="top-row">Streak</th>
+                <th className="top-row">Stars</th> 
+        </tr>
             {leaderboard.map((entry, index) => {
                 return <tr>
                     <td>{index + 1}</td>
@@ -34,7 +35,7 @@ const Leaderboard = () =>{
                 </tr>
             })}
         </table>
-        </>
+        </div>
     )
 }
 

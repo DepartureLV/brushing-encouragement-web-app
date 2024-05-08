@@ -5,10 +5,10 @@ import Leaderboard from "./components/Leaderboard";
 
 function App() {
   return (
-    <>
+    <div className="main-container">
       <Timer/>
       <Leaderboard/>
-    </>
+    </div>
   )
 }
 
