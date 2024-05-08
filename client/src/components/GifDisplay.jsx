@@ -27,21 +27,21 @@ const GifDisplay = ({remainingSeconds, isRunning}) => {
     }, [remainingSeconds]);
 
     async function handleGetGifs (){
-        // const gifArray = []
-        // let randomNumber = Math.floor(Math.random() * 100)
-        // const fetchAdvice = await fetch(`https://api.giphy.com/v1/gifs/search?q=toothbrush&api_key=${gifKey}&limit=4&offset=${randomNumber}`);
-        // const data = await fetchAdvice.json();
-        // console.log(data.data);
+        const gifArray = []
+        let randomNumber = Math.floor(Math.random() * 100)
+        const fetchAdvice = await fetch(`https://api.giphy.com/v1/gifs/search?q=toothbrush&api_key=${gifKey}&limit=4&offset=${randomNumber}`);
+        const data = await fetchAdvice.json();
+        console.log(data.data);
 
-        // for(let i = 0; i < 4; i++){
-        //     let newGif = data.data[i].images.downsized.url;
-        //     gifArray.push(newGif);
-        // }
+        for(let i = 0; i < 4; i++){
+            let newGif = data.data[i].images.downsized.url;
+            gifArray.push(newGif);
+        }
 
-        // setGifs(gifArray);
+        setGifs(gifArray);
 
         // setGif(newGif);
-        setGifs(["https://media1.giphy.com/media/xT9IgpwOQfx9WmFxN6/giphy-downsized.gif?cid=4e996b57b40tws5xjzcsbpncnsjaw34og10k5rshqsyx7img&ep=v1_gifs_search&rid=giphy-downsized.gif&ct=g"]);
+        // setGifs(["https://media1.giphy.com/media/xT9IgpwOQfx9WmFxN6/giphy-downsized.gif?cid=4e996b57b40tws5xjzcsbpncnsjaw34og10k5rshqsyx7img&ep=v1_gifs_search&rid=giphy-downsized.gif&ct=g"]);
    }
 
     return (
