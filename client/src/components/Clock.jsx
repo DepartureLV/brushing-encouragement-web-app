@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Clock.css';
+import GifDisplay from './GifDisplay';
 
 function Clock({updateStreakScore, updateStarScore}) {
-    const totalSeconds = 5;
+    const totalSeconds = 120;
     const [isRunning, setIsRunning] = useState(false);
     const [remainingSeconds, setRemainingSeconds] = useState(totalSeconds);
     
@@ -53,12 +54,15 @@ function Clock({updateStreakScore, updateStarScore}) {
     };
     
     return (
+        <>
         <div className='timer-container'>
             <div id='countdown'>
                 {displayTimerString(remainingSeconds)}
             </div>
             <button onClick={remainingSeconds === 0 ? handleReset:handleStart}>Start</button>
         </div>
+        <GifDisplay remainingSeconds = {remainingSeconds} isRunning = {isRunning}/>
+        </>
     );
 }
 
