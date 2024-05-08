@@ -15,7 +15,9 @@ const setupServer = () => {
   });
 
   app.get("/leaderboard", async (req, res) => {
-    const resp = await knex("scores").select("*").orderBy("star_score", "asc");
+    const resp = await knex("scores")
+      .select("*")
+      .orderBy("streak_score", "desc");
     res.status(200).send(resp);
   });
 
