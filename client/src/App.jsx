@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import Header from "./components/Header";
 import Streak from "./components/Streak";
 import Star from "./components/Star";
 import Timer from "./components/Timer";
@@ -85,14 +86,14 @@ function App() {
   // Return
   return (
     <>
-      <header>Brush Buddy</header>
+      <Header/>
       <div className="scores-section">
       <Streak className="streak" streakScore={streakScore}/>
       <Star className="star" starScore={starScore}/>
       </div>
       <Timer updateStreakScore={updateStreakScore} updateStarScore={updateStarScore}/>
       {handleModal()}
-    </>
+   </>
   )
 }
 
