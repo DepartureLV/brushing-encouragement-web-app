@@ -158,7 +158,47 @@ const setupServer = () => {
     return res.status(200).send(starScore);
   });
 
-  app.put("/streakScore/:id", async (req, res) => {
+
+  app.put("/starScore/flossy/:id", checkToken, async (req, res) => {
+    const userId = req.params.id;
+    const startOfDay = new Date();
+    const endOfDay = new Date();
+
+    startOfDay.setHours(0, 0, 0, 0);
+    endOfDay.setHours(23, 59, 59, 999);
+
+    // check more than 2 time in 24 hours (GMT +7)
+    const flossyCount = await knex("flossy_timestamps")
+      .where({
+        user_id: userId,
+      })
+      .andWhere("flossy_timestamp", ">=", startOfDay)
+      .andWhere("flossy_timestamp", "<=", endOfDay)
+      .count("*");
+
+    if (parseInt(flossyCount[0].count) >= 2) {
+      return res.status(403).send("Be careful about over-flossing!");
+    }
+
+    const starScoreAmount = parseInt(flossyCount[0].count) < 2 ? 2 : 0;
+
+    await knex("scores")
+      .where("user_id", userId)
+      .increment("star_score", starScoreAmount);
+
+    await knex("flossy_timestamps").insert({
+      user_id: userId,
+    });
+
+    let starScore = await knex("scores")
+      .select({ starScore: "star_score" })
+      .where({ user_id: userId });
+
+    return res.status(200).send(starScore);
+  });
+
+  app.put("/streakScore/:id", checkToken, async (req, res) => {
+
     const userId = req.params.id;
     const startOfDay = new Date();
     const endOfDay = new Date();
