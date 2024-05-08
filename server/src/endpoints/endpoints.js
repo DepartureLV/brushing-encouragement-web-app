@@ -29,15 +29,23 @@ const setupServer = () => {
       .where({ user_email: user_email })
       .first();
 
-    const hashedPassword = generateHashedPassword(
+    if (!userVerficationData) {
+      res
+        .status(401)
+        .send({ message: "Wrong username or password, please try again" });
+      return;
+    }
+
+    const hashed_password = generateHashedPassword(
       password,
       userVerficationData.salt
     );
 
-    if (
-      userVerficationData &&
-      hashedPassword === userVerficationData.hashed_password
-    ) {
+    if (hashed_password !== userVerficationData.hashed_password) {
+      res
+        .status(401)
+        .send({ message: "Wrong username or password, please try again" });
+    } else {
       jwt.sign(
         { message: "Login Successful" },
         SECRET_KEY,
@@ -46,11 +54,9 @@ const setupServer = () => {
           if (err) {
             console.log(err);
           }
-          res.send(token);
+          res.status(201).send({ token: token, message: "Login Successful" });
         }
       );
-    } else {
-      res.send({ message: "Wrong username orpassword, please try again" });
     }
   });
 
