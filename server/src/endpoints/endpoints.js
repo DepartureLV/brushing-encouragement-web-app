@@ -14,6 +14,10 @@ const setupServer = () => {
     res.status(200).send("Welcome to Brush Buddy");
   });
 
+  // app.get('/leaderboard', async (req,res) => {
+  //   const resp = await knex('')
+  // })
+
   // this is create new challenger ??
   app.post("/scores/:id", async (req, res) => {
     const userId = parseInt(req.params.id);
@@ -45,7 +49,6 @@ const setupServer = () => {
     let lastBrush = await knex("brush_timestamps")
       .max("brush_timestamp")
       .where({ user_id: userId });
-    console.log("last brush:", lastBrush[0].max.getTime());
 
     // compare current with last brush
     if (lastBrush[0].max !== null) {
