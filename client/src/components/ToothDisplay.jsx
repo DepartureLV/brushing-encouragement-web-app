@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const ToothDisplay = ({ starScore }) => {
-  const [toothDisplay, setToothDisplay] = useState("../Public/toothNaked.png");
+  const [toothDisplay, setToothDisplay] = useState("https://firebasestorage.googleapis.com/v0/b/my-basket-diaries.appspot.com/o/brushBuddy%2FtoothNaked.png?alt=media&token=d6c363a1-096c-47d1-a682-6739a827e761");
 
   useEffect(() => {
     handleToothDisplay();
