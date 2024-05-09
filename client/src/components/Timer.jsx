@@ -8,7 +8,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const Timer = () => {
     //STATES
     const [streakScore, setStreakScore] = useState(0);
-    const [starScore, setStarScore] = useState(10);
+    const [starScore, setStarScore] = useState(0);
 
     useEffect(()=>{
       handleSetScores();
