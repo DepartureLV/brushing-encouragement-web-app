@@ -36,11 +36,15 @@ html {
 }
 
 .table-container {
+  border: solid black 2px;
   scroll-behavior: smooth;
-  height: 461px;
+  max-height: 100%;
+  min-height: fit-content;
+  padding: 24px;
   width: 500px;
-  overflow-y: scroll;
+  overflow-y: hidden;
   position: relative;
+  text-align: center;
 }
 .table,
 th,
@@ -62,6 +66,6 @@ td {
   position: sticky;
 }
 
-tr:nth-child(even) {
-  background-color: rgba(157, 226, 231, 0.4);
+tr:nth-child(odd) {
+  background-color: rgb(255, 255, 255);
 }
