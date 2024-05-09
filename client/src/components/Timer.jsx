@@ -60,7 +60,7 @@ const Timer = () => {
       <Streak className="streak" streakScore={streakScore}/>
       <Star className="star" starScore={starScore}/>
       </div>
-      <Clock updateStreakScore={updateStreakScore} updateStarScore={updateStarScore}/>
+      <Clock updateStreakScore={updateStreakScore} updateStarScore={updateStarScore} starScore={starScore}/>
     </div>
     )
 }
