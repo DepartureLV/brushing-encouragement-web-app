@@ -42,9 +42,9 @@ const ToothDisplay = ({ starScore }) => {
   };
 
   return (
-    <>
+    <div className="">
       <img src={toothDisplay} style={{ width: "250px" }}></img>
-    </>
+    </div>
   );
 };
 

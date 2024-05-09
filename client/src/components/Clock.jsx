@@ -5,7 +5,7 @@ import ToothDisplay from "./ToothDisplay";
 import Flossing from "./Flossing";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-function Clock({ updateStreakScore, updateStarScore, starScore }) {
+function Clock({ updateStreakScore, updateStarScore, clockDisplay }) {
   const totalSeconds = 120;
   const [isRunning, setIsRunning] = useState(false);
   const [remainingSeconds, setRemainingSeconds] = useState(totalSeconds);
@@ -59,7 +59,7 @@ function Clock({ updateStreakScore, updateStarScore, starScore }) {
   };
 
   return (
-    <>
+    <div className="clockDisplay">
       <div className="timer-container">
         <div id="countdown">{displayTimerString(remainingSeconds)}</div>
         <div className="timerButtonsContainer">
@@ -77,14 +77,15 @@ function Clock({ updateStreakScore, updateStarScore, starScore }) {
           >
             Floss
           </button>
-          {flossingDisplay ? <Flossing setFlossingDisplay={setFlossingDisplay} /> : <></>}
+          {flossingDisplay ? (
+            <Flossing setFlossingDisplay={setFlossingDisplay} />
+          ) : (
+            <></>
+          )}
         </div>
       </div>
-
-      <ToothDisplay starScore={starScore} />
-
       <GifDisplay remainingSeconds={remainingSeconds} isRunning={isRunning} />
-    </>
+    </div>
   );
 }
 
