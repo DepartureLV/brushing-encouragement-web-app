@@ -11,7 +11,6 @@ const Leaderboard = () => {
 
   //HANDLER
   async function handleGetLeaderboard() {
-
     const response = await fetch(`${BASE_URL}/leaderboard/`, {
       method: "GET",
       headers: {

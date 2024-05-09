@@ -18,3 +18,14 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.clockDisplay {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.helloBuddy {
+  position: absolute;
+  top: -200px;
+}
