@@ -28,11 +28,13 @@ const Login = (props) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userCredentials),
     });
+    
     const data = await response.json();
-    const { token, message } = data;
+    const { token, message, id } = data;
 
     if (token) {
       sessionStorage.setItem("token", token);
+      sessionStorage.setItem("id", id);
       alert(message);
       navigate("/dashboard");
     } else {
