@@ -1,20 +1,31 @@
-#countdown {
-    font-size: 80px;
-    font-weight: bold;
-    padding: 10px;
-    margin-bottom: 24px;
-    margin: 50px auto;
-    text-align: center;
-  }
-
-.timer-container {
+.timer-display {
   display: flex;
+  height: 80lvh;
+}
+.gifSize {
+  width: 350px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.buffer {
+  width: 350px;
+  height: 200px;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.clockDisplay {
+  display: flex;
+  justify-content: space-between;
   flex-direction: column;
 }
 
-.timer-container button {
-  font-size: 3em;
-  padding-left: 1em;
-  padding-right: 1em;
-  margin: auto;
+.helloBuddy {
+  position: absolute;
+  top: -200px;
 }

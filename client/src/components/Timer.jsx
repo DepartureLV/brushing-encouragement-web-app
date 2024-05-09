@@ -1,65 +1,87 @@
-import React, { useState, useEffect } from 'react';
-import './Timer.css';
+import Streak from "./Streak";
+import Star from "./Star";
+import Clock from "./Clock";
+import { useEffect, useState } from "react";
+import "./Timer.css";
+import ToothDisplay from "./ToothDisplay";
 
-function Timer({updateStreakScore, updateStarScore}) {
-    const totalSeconds = 120;
-    const [isRunning, setIsRunning] = useState(false);
-    const [remainingSeconds, setRemainingSeconds] = useState(totalSeconds);
-    
-    useEffect(() => {
-        handleCountdown()
-    }, [isRunning]);
-    
-    useEffect(() => {
-        if (remainingSeconds === 0) {
-            updateStreakScore();
-            updateStarScore();
-        }
-    }, [remainingSeconds]);
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-    const handleStart = () => {
-        setIsRunning(true);
-    };
+const Timer = () => {
+  //STATES
+  const [streakScore, setStreakScore] = useState(0);
+  const [starScore, setStarScore] = useState(0);
 
-    const handleReset = () => {
-        setRemainingSeconds(totalSeconds);
-        handleStart();
-    };
-    
-    const handleCountdown = () => {
-        let countdown;
-    
-        if (isRunning) {
-            countdown = setInterval(() => {
-                setRemainingSeconds((currentSeconds) => {
-                    if (currentSeconds > 0) {
-                        return currentSeconds - 1;
-                    }
-                    setIsRunning(false);
-                    clearInterval(countdown);
-                    return 0;
-                });
-            }, 1000);
-        };
-    
-        return () => clearInterval(countdown);
-    };
-    
-    
-    const displayTimerString = (seconds) => {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-    };
-    
-    return (
-        <div className='timer-container'>
-            <div id='countdown'>
-                {displayTimerString(remainingSeconds)}
-            </div>
-            <button onClick={remainingSeconds === 0 ? handleReset:handleStart}>Start</button>
+  const id = sessionStorage.getItem("id");
+  const token = sessionStorage.getItem("token");
+
+  useEffect(() => {
+    handleSetScores();
+  }, []);
+
+  //Handler
+  async function handleSetScores() {
+    const scores = await getScores();
+
+    setStreakScore(scores.streakScore);
+    setStarScore(scores.starScore);
+  }
+
+  async function getScores() {
+    const response = await fetch(`${BASE_URL}/scores/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    const scores = await response.json();
+    return scores;
+  }
+
+  async function updateStreakScore() {
+    const resStreak = await fetch(`${BASE_URL}/streakScore/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    const newStreakScore = await resStreak.json();
+    const newStreak = newStreakScore[0].streakScore;
+    setStreakScore(newStreak);
+  }
+
+  async function updateStarScore() {
+    const resStar = await fetch(`${BASE_URL}/starScore/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    const newStarScore = await resStar.json();
+    const newStar = newStarScore[0].starScore;
+    setStarScore(newStar);
+  }
+  return (
+    <div className=" timer-display">
+      <Clock
+        className="clockDisplay"
+        updateStreakScore={updateStreakScore}
+        updateStarScore={updateStarScore}
+        starScore={starScore}
+      />
+      <div className="rightColumn">
+        <div className="scores-section">
+          <Streak className="streak" streakScore={streakScore} />
+          <Star className="star" starScore={starScore} />
         </div>
-    );
-}
+        <ToothDisplay starScore={starScore} />
+      </div>
+    </div>
+  );
+};
 
 export default Timer;

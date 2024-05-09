@@ -8,7 +8,7 @@ const ToothDisplay = ({ starScore }) => {
   }, [starScore]);
 
   //handlerFunctions
-  const handleToothDisplay = () => {
+ const handleToothDisplay = () => {
     if (starScore >= 5 && starScore <= 10) {
       setToothDisplay(
         "https://firebasestorage.googleapis.com/v0/b/my-basket-diaries.appspot.com/o/brushBuddy%2FtoothChild.png?alt=media&token=635837c5-4e84-422e-b18b-201574b1c4e3"
@@ -64,7 +64,7 @@ const ToothDisplay = ({ starScore }) => {
   return (
     <div style={{ position: "relative" }}>
       <img
-        className="Buddy"
+        className="helloBuddy"
         src="https://firebasestorage.googleapis.com/v0/b/my-basket-diaries.appspot.com/o/brushBuddy%2FTeeth%20(1).png?alt=media&token=9cfc2aff-d9e9-4b7a-99c5-1f9e89d29ca9"
         style={{ width: "300px" }}
       ></img>

@@ -1,0 +1,22 @@
+#countdown {
+  font-size: 80px;
+  font-weight: bold;
+  padding: 10px;
+  margin-bottom: 24px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.timer-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.timerButtonsContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.timerButtons {
+  border: 1px solid black;
+}
