@@ -9,6 +9,8 @@ const {
 } = require("../authentication/password-hasher");
 const { validateEmail } = require("../authentication/validate-email");
 
+require("dotenv").config({ path: "../.env" });
+
 const { SCORES_TABLE } = require("./../global/global");
 
 const SECRET_KEY = process.env.SECRET;
@@ -50,7 +52,14 @@ const setupServer = () => {
       salt: salt,
     };
 
-    await knex.insert(newUserData).into("user_credentials");
+    const id = await knex
+      .insert(newUserData)
+      .into("user_credentials")
+      .returning("id");
+
+    await knex
+      .insert({ user_id: id[0].id, streak_score: 0, star_score: 0 })
+      .into(SCORES_TABLE);
 
     res.status(201).send({
       message: "User created",

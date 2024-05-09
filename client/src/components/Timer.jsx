@@ -6,64 +6,76 @@ import { useEffect, useState } from "react";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Timer = () => {
-    //STATES
-    const [streakScore, setStreakScore] = useState(0);
-    const [starScore, setStarScore] = useState(0);
+  //STATES
+  const [streakScore, setStreakScore] = useState(0);
+  const [starScore, setStarScore] = useState(0);
 
-    useEffect(()=>{
-      handleSetScores();
-    },[])
+  const id = sessionStorage.getItem("id");
 
-    //Handler
-    async function handleSetScores() {
-        const scores = await getScores();
-    
-        setStreakScore(scores.streakScore);
-        setStarScore(scores.starScore);
-      }
+  useEffect(() => {
+    handleSetScores();
+  }, []);
 
-    async function getScores() {
-        const response = await fetch (`${BASE_URL}/scores/${id}`, {method: "GET"});
-        const scores = await response.json();
-        return scores;
-    } 
+  //Handler
+  async function handleSetScores() {
+    const scores = await getScores();
 
-    async function updateStreakScore() {
-        const resStreak = await fetch(`${BASE_URL}/streakScore/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-    
-        const newStreakScore = await resStreak.json();
-        const newStreak = newStreakScore[0].streakScore;
-        setStreakScore(newStreak);
-    }
+    setStreakScore(scores.streakScore);
+    setStarScore(scores.starScore);
+  }
 
-    async function updateStarScore() {
+  async function getScores() {
+    const response = await fetch(`${BASE_URL}/scores/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    });
+    const scores = await response.json();
+    return scores;
+  }
 
-        const resStar = await fetch(`${BASE_URL}/starScore/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-    
-        const newStarScore = await resStar.json();
-        const newStar = newStarScore[0].starScore;
-        setStarScore(newStar);
-      }
-    return (
+  async function updateStreakScore() {
+    const resStreak = await fetch(`${BASE_URL}/streakScore/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    });
+
+    const newStreakScore = await resStreak.json();
+    const newStreak = newStreakScore[0].streakScore;
+    setStreakScore(newStreak);
+  }
+
+  async function updateStarScore() {
+    const resStar = await fetch(`${BASE_URL}/starScore/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    });
+
+    const newStarScore = await resStar.json();
+    const newStar = newStarScore[0].starScore;
+    setStarScore(newStar);
+  }
+  return (
     <div className=" timer-display">
-    <div className="scores-section">
-      <Streak className="streak" streakScore={streakScore}/>
-      <Star className="star" starScore={starScore}/>
+      <div className="scores-section">
+        <Streak className="streak" streakScore={streakScore} />
+        <Star className="star" starScore={starScore} />
       </div>
-      <Clock updateStreakScore={updateStreakScore} updateStarScore={updateStarScore} starScore={starScore}/>
+      <Clock
+        updateStreakScore={updateStreakScore}
+        updateStarScore={updateStarScore}
+        starScore={starScore}
+      />
     </div>
-    )
-}
-
+  );
+};
 
 export default Timer;
