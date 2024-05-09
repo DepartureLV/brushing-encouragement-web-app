@@ -5,8 +5,14 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Login = (props) => {
   // USE STATE
+  // login
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // signup
+  const [newUserEmail, setNewUserEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [isSignup, setIsSignup] = useState(false);
 
   useEffect(() => {
     dialogRef.current.showModal();
@@ -28,7 +34,7 @@ const Login = (props) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userCredentials),
     });
-    
+
     const data = await response.json();
     const { token, message, id } = data;
 
@@ -40,38 +46,73 @@ const Login = (props) => {
     } else {
       alert(message);
     }
+  }
 
-    // if (data.isNewUser === true) {
-    //   const newScoresResponse = await fetch(`${BASE_URL}/scores/${id}`, {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //   });
-    //   const scoresResponseData = await newScoresResponse.json();
-    // }
-    // if (data.isLoggedIn === true) toggle();
+  async function handleSignup(e) {
+    e.preventDefault();
+    const userCredentials = {
+      user_email: newUserEmail,
+      password: newPassword,
+    };
+
+    const response = await fetch(`${BASE_URL}/user/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userCredentials),
+    });
+
+    const data = await response.json();
+    const { message } = data;
+
+    alert(message);
+    setIsSignup(false);
   }
 
   return (
     <dialog ref={dialogRef} id="modal">
       <div className="modal-content">
-        <h2>Enter your credentials.</h2>
-        <form onSubmit={handleLogin}>
-          <input
-            id="E-mail"
-            type="text"
-            placeholder="E-mail"
-            value={userEmail}
-            onChange={(e) => setUserEmail(e.target.value)}
-          />
-          <input
-            id="Password"
-            type="text"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button type="submit">Login/Sign Up</button>
-        </form>
+        <h2>Welcome to Brush Buddy</h2>
+        {!isSignup ? (
+          <form onSubmit={handleLogin}>
+            <input
+              id="E-mail"
+              type="text"
+              placeholder="E-mail"
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
+            />
+            <input
+              id="Password"
+              type="text"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button type="submit">Login</button>
+          </form>
+        ) : (
+          <form onSubmit={handleSignup}>
+            <input
+              id="E-mail"
+              type="text"
+              placeholder="E-mail"
+              value={newUserEmail}
+              onChange={(e) => setNewUserEmail(e.target.value)}
+            />
+            <input
+              id="Password"
+              type="text"
+              placeholder="Password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <button type="submit">Signup</button>
+          </form>
+        )}
+
+        <button onClick={() => setIsSignup((prev) => !prev)}>
+          {isSignup ? "Login" : "Signup"}
+        </button>
       </div>
     </dialog>
   );
