@@ -3,11 +3,11 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const app = express();
 const knex = require("../knex");
-const loginRoutes = require("./../routes/login");
 const {
   generateHashedPassword,
   generateSalt,
 } = require("../authentication/password-hasher");
+const { validateEmail } = require("../authentication/validate-email");
 
 const { SCORES_TABLE } = require("./../global/global");
 
@@ -26,6 +26,21 @@ const setupServer = () => {
     const { body } = req;
     const { user_email } = body;
     const { password } = body;
+
+    if (!validateEmail(user_email)) {
+      res.status(401).send({ message: "Invalid email format" });
+      return;
+    }
+
+    const checkUserExistInDatabase = await knex("user_credentials")
+      .select("user_email")
+      .where({ user_email: user_email })
+      .first();
+
+    if (checkUserExistInDatabase) {
+      res.status(401).send({ message: "User already exists" });
+      return;
+    }
 
     const salt = generateSalt();
 
@@ -72,7 +87,7 @@ const setupServer = () => {
     } else {
       jwt.sign({}, SECRET_KEY, { expiresIn: "1h" }, (err, token) => {
         if (err) {
-          console.log(err);
+          console.error(err);
         }
         res.status(201).send({
           token: token,
@@ -147,8 +162,6 @@ const setupServer = () => {
     res.status(200).send(score);
   });
 
-  // app.use("/login", loginRoutes);
-
   app.put("/starScore/:id", async (req, res) => {
     const userId = req.params.id;
     const startOfDay = new Date();
@@ -186,7 +199,6 @@ const setupServer = () => {
 
     return res.status(200).send(starScore);
   });
-
 
   app.put("/starScore/flossy/:id", checkToken, async (req, res) => {
     const userId = req.params.id;
@@ -227,7 +239,6 @@ const setupServer = () => {
   });
 
   app.put("/streakScore/:id", checkToken, async (req, res) => {
-
     const userId = req.params.id;
     const startOfDay = new Date();
     const endOfDay = new Date();
