@@ -65,7 +65,7 @@ const ToothDisplay = ({ starScore }) => {
     <div style={{ position: "relative" }}>
       <img
         className="helloBuddy"
-        src="../public/HELLOBUDDY.png"
+        src="https://firebasestorage.googleapis.com/v0/b/my-basket-diaries.appspot.com/o/brushBuddy%2FTeeth%20(1).png?alt=media&token=9cfc2aff-d9e9-4b7a-99c5-1f9e89d29ca9"
         style={{ width: "300px" }}
       ></img>
       <img src={toothDisplay} style={{ width: "250px" }}></img>
