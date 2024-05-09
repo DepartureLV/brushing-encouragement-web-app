@@ -18,8 +18,10 @@ const Flossing = ({ setFlossingDisplay }) => {
   return (
     <div className="flossingContainer">
       <p>Would you like to floss now?</p>
-      <button onClick={handleFlossing}>Yes</button>
-      <button onClick={() => setFlossingDisplay(false)}>No</button>
+      <div className="flossingButtonContainer">
+        <button onClick={handleFlossing}>Yes</button>
+        <button onClick={() => setFlossingDisplay(false)}>No</button>
+      </div>
     </div>
   );
 };

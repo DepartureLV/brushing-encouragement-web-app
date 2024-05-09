@@ -42,9 +42,14 @@ const ToothDisplay = ({ starScore }) => {
   };
 
   return (
-    <>
+    <div style={{ position: "relative" }}>
+      <img
+        className="helloBuddy"
+        src="../public/HELLOBUDDY.png"
+        style={{ width: "300px" }}
+      ></img>
       <img src={toothDisplay} style={{ width: "250px" }}></img>
-    </>
+    </div>
   );
 };
 

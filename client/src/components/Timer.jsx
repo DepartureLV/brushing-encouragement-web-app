@@ -2,6 +2,8 @@ import Streak from "./Streak";
 import Star from "./Star";
 import Clock from "./Clock";
 import { useEffect, useState } from "react";
+import "./Timer.css";
+import ToothDisplay from "./ToothDisplay";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -65,15 +67,19 @@ const Timer = () => {
   }
   return (
     <div className=" timer-display">
-      <div className="scores-section">
-        <Streak className="streak" streakScore={streakScore} />
-        <Star className="star" starScore={starScore} />
-      </div>
       <Clock
+        className="clockDisplay"
         updateStreakScore={updateStreakScore}
         updateStarScore={updateStarScore}
         starScore={starScore}
       />
+      <div className="rightColumn">
+        <div className="scores-section">
+          <Streak className="streak" streakScore={streakScore} />
+          <Star className="star" starScore={starScore} />
+        </div>
+        <ToothDisplay starScore={starScore} />
+      </div>
     </div>
   );
 };
