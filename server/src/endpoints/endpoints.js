@@ -4,7 +4,10 @@ const jwt = require("jsonwebtoken");
 const app = express();
 const knex = require("../knex");
 const loginRoutes = require("./../routes/login");
-const { generateHashedPassword } = require("../authentication/password-hasher");
+const {
+  generateHashedPassword,
+  generateSalt,
+} = require("../authentication/password-hasher");
 
 const { SCORES_TABLE } = require("./../global/global");
 
@@ -18,6 +21,27 @@ const setupServer = () => {
     res.status(200).send("Welcome to Brush Buddy");
   });
 
+  // SIGNUP ENDPOINT
+  app.post("/user/signup", async (req, res, next) => {
+    const { body } = req;
+    const { user_email } = body;
+    const { password } = body;
+
+    const salt = generateSalt();
+
+    const newUserData = {
+      user_email: user_email,
+      hashed_password: generateHashedPassword(password, salt),
+      salt: salt,
+    };
+
+    await knex.insert(newUserData).into("user_credentials");
+
+    res.status(201).send({
+      message: "User created",
+    });
+  });
+
   // LOGIN ENDPOINT
   app.post("/user/login", async (req, res, next) => {
     const { body } = req;
@@ -25,7 +49,7 @@ const setupServer = () => {
     const { password } = body;
 
     const userVerficationData = await knex("user_credentials")
-      .select("hashed_password", "salt")
+      .select("hashed_password", "salt", "id")
       .where({ user_email: user_email })
       .first();
 
@@ -46,17 +70,16 @@ const setupServer = () => {
         .status(401)
         .send({ message: "Wrong username or password, please try again" });
     } else {
-      jwt.sign(
-        { message: "Login Successful" },
-        SECRET_KEY,
-        { expiresIn: "1h" },
-        (err, token) => {
-          if (err) {
-            console.log(err);
-          }
-          res.status(201).send({ token: token, message: "Login Successful" });
+      jwt.sign({}, SECRET_KEY, { expiresIn: "1h" }, (err, token) => {
+        if (err) {
+          console.log(err);
         }
-      );
+        res.status(201).send({
+          token: token,
+          message: "Login Successful",
+          id: userVerficationData.id,
+        });
+      });
     }
   });
 
