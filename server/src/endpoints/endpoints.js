@@ -230,7 +230,7 @@ const setupServer = () => {
       return res.status(403).send("Be careful about over-flossing!");
     }
 
-    const starScoreAmount = parseInt(flossyCount[0].count) < 2 ? 2 : 0;
+    const starScoreAmount = parseInt(flossyCount[0].count) < 2 ? 1 : 0;
 
     await knex("scores")
       .where("user_id", userId)
