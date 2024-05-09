@@ -4,7 +4,7 @@ import GifDisplay from "./GifDisplay";
 import ToothDisplay from "./ToothDisplay";
 
 function Clock({ updateStreakScore, updateStarScore, starScore }) {
-  const totalSeconds = 5;
+  const totalSeconds = 120;
   const [isRunning, setIsRunning] = useState(false);
   const [remainingSeconds, setRemainingSeconds] = useState(totalSeconds);
 
