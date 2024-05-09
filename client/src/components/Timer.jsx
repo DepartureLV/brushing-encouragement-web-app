@@ -19,9 +19,15 @@ const Timer = () => {
     handleSetScores();
   }, []);
 
+  useEffect(() => {
+    console.log(streakScore, starScore);
+  }, [streakScore, starScore]);
+
   //Handler
   async function handleSetScores() {
     const scores = await getScores();
+
+    console.log("press");
 
     setStreakScore(scores.streakScore);
     setStarScore(scores.starScore);
@@ -72,6 +78,7 @@ const Timer = () => {
         updateStreakScore={updateStreakScore}
         updateStarScore={updateStarScore}
         starScore={starScore}
+        handleSetScores={handleSetScores}
       />
       <div className="rightColumn">
         <div className="scores-section">
