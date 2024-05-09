@@ -31,7 +31,7 @@ const GifDisplay = ({remainingSeconds, isRunning}) => {
         let randomNumber = Math.floor(Math.random() * 100)
         const fetchAdvice = await fetch(`https://api.giphy.com/v1/gifs/search?q=toothbrush&api_key=${gifKey}&limit=4&offset=${randomNumber}`);
         const data = await fetchAdvice.json();
-        console.log(data.data);
+       
 
         for(let i = 0; i < 4; i++){
             let newGif = data.data[i].images.downsized.url;
