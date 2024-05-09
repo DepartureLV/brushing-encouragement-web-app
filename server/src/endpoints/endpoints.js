@@ -8,6 +8,7 @@ const {
   generateHashedPassword,
   generateSalt,
 } = require("../authentication/password-hasher");
+const { validateEmail } = require("../authentication/validate-email");
 
 const { SCORES_TABLE } = require("./../global/global");
 
@@ -26,6 +27,11 @@ const setupServer = () => {
     const { body } = req;
     const { user_email } = body;
     const { password } = body;
+
+    if (!validateEmail(user_email)) {
+      res.status(401).send({ message: "Invalid email format" });
+      return;
+    }
 
     const checkUserExistInDatabase = await knex("user_credentials")
       .select("user_email")
