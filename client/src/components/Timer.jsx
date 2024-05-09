@@ -10,6 +10,9 @@ const Timer = () => {
   const [streakScore, setStreakScore] = useState(0);
   const [starScore, setStarScore] = useState(0);
 
+  const id = sessionStorage.getItem("id");
+  const token = sessionStorage.getItem("token");
+
   useEffect(() => {
     handleSetScores();
   }, []);
@@ -23,8 +26,6 @@ const Timer = () => {
   }
 
   async function getScores() {
-    const id = sessionStorage.getItem("id");
-    const token = sessionStorage.getItem("token");
     const response = await fetch(`${BASE_URL}/scores/${id}`, {
       method: "GET",
       headers: {
@@ -36,8 +37,6 @@ const Timer = () => {
   }
 
   async function updateStreakScore() {
-    const id = sessionStorage.getItem("id");
-    const token = sessionStorage.getItem("token");
     const resStreak = await fetch(`${BASE_URL}/streakScore/${id}`, {
       method: "PUT",
       headers: {
@@ -52,8 +51,6 @@ const Timer = () => {
   }
 
   async function updateStarScore() {
-    const id = sessionStorage.getItem("id");
-    const token = sessionStorage.getItem("token");
     const resStar = await fetch(`${BASE_URL}/starScore/${id}`, {
       method: "PUT",
       headers: {

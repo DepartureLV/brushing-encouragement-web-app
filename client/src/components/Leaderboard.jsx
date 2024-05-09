@@ -11,7 +11,15 @@ const Leaderboard = () => {
 
   //HANDLER
   async function handleGetLeaderboard() {
-    const response = await fetch(`${BASE_URL}/leaderboard/`, { method: "GET" });
+
+    const response = await fetch(`${BASE_URL}/leaderboard/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    });
+
     const data = await response.json();
     setLeaderboard(data);
   }
