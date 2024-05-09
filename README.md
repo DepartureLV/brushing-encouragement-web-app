@@ -45,7 +45,7 @@ Tests are provided for the password hasher and generating salt. Run them using `
 
 ## Screenshot
 
-![Screenshot of Brush Buddy application](./Images/BrushBuddy-Screenshot.png)
+![Screenshot of Brush Buddy application](./Images/BrushBuddyUnicornVersion.png)
 
 ## Link
 
