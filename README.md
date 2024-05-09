@@ -49,7 +49,7 @@ Tests are provided for the password hasher and generating salt. Run them using `
 
 ## Link
 
-https://brush-buddy-front-end.onrender.com/
+[https://brush-buddy-front-end.onrender.com/](https://brushing-encouragement-web-app-1.onrender.com/)
 
 
 
