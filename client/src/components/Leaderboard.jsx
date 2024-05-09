@@ -11,6 +11,7 @@ const Leaderboard = () => {
 
   //HANDLER
   async function handleGetLeaderboard() {
+
     const response = await fetch(`${BASE_URL}/leaderboard/`, {
       method: "GET",
       headers: {
@@ -18,6 +19,7 @@ const Leaderboard = () => {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     });
+
     const data = await response.json();
     setLeaderboard(data);
   }
@@ -25,22 +27,25 @@ const Leaderboard = () => {
     <div className="table-container">
       <h2>Leaderboard</h2>
       <table className="table">
-        <tr>
-          <th className="top-row">Rank</th>
-          <th className="top-row">User</th>
-          <th className="top-row">Streak</th>
-          <th className="top-row">Stars</th>
-        </tr>
-        {leaderboard.map((entry, index) => {
-          return (
-            <tr>
-              <td>{index + 1}</td>
-              <td>{entry.user_id}</td>
-              <td>{entry.streak_score}</td>
-              <td>{entry.star_score}</td>
-            </tr>
-          );
-        })}
+        <tbody>
+          <tr>
+            <th className="top-row">Rank</th>
+            <th className="top-row">User</th>
+            <th className="top-row">Streak</th>
+            <th className="top-row">Stars</th>
+          </tr>
+
+          {leaderboard.map((entry, index) => {
+            return (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{entry.user_id}</td>
+                <td>{entry.streak_score}</td>
+                <td>{entry.star_score}</td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
     </div>
   );

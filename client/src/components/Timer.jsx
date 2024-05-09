@@ -11,6 +11,7 @@ const Timer = () => {
   const [starScore, setStarScore] = useState(0);
 
   const id = sessionStorage.getItem("id");
+  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
     handleSetScores();
@@ -28,8 +29,7 @@ const Timer = () => {
     const response = await fetch(`${BASE_URL}/scores/${id}`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: "Bearer " + token,
       },
     });
     const scores = await response.json();
@@ -41,7 +41,7 @@ const Timer = () => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: "Bearer " + token,
       },
     });
 
@@ -55,7 +55,7 @@ const Timer = () => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: "Bearer " + token,
       },
     });
 

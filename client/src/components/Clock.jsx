@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import "./Clock.css";
 import GifDisplay from "./GifDisplay";
 import ToothDisplay from "./ToothDisplay";
+import Flossing from "./Flossing";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function Clock({ updateStreakScore, updateStarScore, starScore }) {
   const totalSeconds = 120;
   const [isRunning, setIsRunning] = useState(false);
   const [remainingSeconds, setRemainingSeconds] = useState(totalSeconds);
+  const [flossingDisplay, setFlossingDisplay] = useState(false);
 
   useEffect(() => {
     handleCountdown();
@@ -59,11 +62,27 @@ function Clock({ updateStreakScore, updateStarScore, starScore }) {
     <>
       <div className="timer-container">
         <div id="countdown">{displayTimerString(remainingSeconds)}</div>
-        <button onClick={remainingSeconds === 0 ? handleReset : handleStart}>
-          Start
-        </button>
+        <div className="timerButtonsContainer">
+          <button
+            className="timerButtons"
+            onClick={remainingSeconds === 0 ? handleReset : handleStart}
+          >
+            Brush
+          </button>
+          <button
+            className="timerButtons"
+            onClick={() => {
+              setFlossingDisplay(true);
+            }}
+          >
+            Floss
+          </button>
+          {flossingDisplay ? <Flossing setFlossingDisplay={setFlossingDisplay} /> : <></>}
+        </div>
       </div>
+
       <ToothDisplay starScore={starScore} />
+
       <GifDisplay remainingSeconds={remainingSeconds} isRunning={isRunning} />
     </>
   );
