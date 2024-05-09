@@ -38,10 +38,10 @@ Be sure to have postgresql 14 or higher installed on your local machine.
 Tests are provided for the password hasher and generating salt. Run them using ```npm run test```
 
 ## Technologies-Utilized
-- Postgresql (Knex)
-- Express
-- React
-- Node
+- Postgresql (Knex) ![PostgresQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+- Express ![ExpressJS](https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white)
+- React ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+- Node ![NodeJS](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 
 ## Screenshot
 
