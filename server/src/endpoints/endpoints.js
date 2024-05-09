@@ -3,7 +3,6 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const app = express();
 const knex = require("../knex");
-const loginRoutes = require("./../routes/login");
 const {
   generateHashedPassword,
   generateSalt,
@@ -88,7 +87,7 @@ const setupServer = () => {
     } else {
       jwt.sign({}, SECRET_KEY, { expiresIn: "1h" }, (err, token) => {
         if (err) {
-          console.log(err);
+          console.error(err);
         }
         res.status(201).send({
           token: token,
@@ -162,8 +161,6 @@ const setupServer = () => {
 
     res.status(200).send(score);
   });
-
-  // app.use("/login", loginRoutes);
 
   app.put("/starScore/:id", async (req, res) => {
     const userId = req.params.id;
